@@ -1,4 +1,5 @@
-# vimrc
-Vim configuration file
-![VIM](https://dnp4pehkvoo6n.cloudfront.net/43c5af597bd5c1a64eb1829f011c208f/as/Ultimate%20Vimrc.svg)
+# Vim configuration file
 
+This project is meant to collect VIM plugin and configuration settings to take the best advantage of the powerful VIM editor.
+
+It is still at an early stage of development.
