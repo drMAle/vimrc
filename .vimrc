@@ -1,60 +1,17 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                                                         "
-"            Alessandro Maggi vim configuration file                      "
-"         ===========================================                     "
+"         Vim configuration file                                          "
+"         ======================                                          "
+"                                                                         "
+"          Author: Alessandro Maggi <alessandro.maggi@gmail.com>          "
+"         Version: 0.1.0                                                  "
 "                                                                         "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"highlight clear
-"if exists("syntax_on")
-"  syntax reset
-"endif
-syntax on
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#tabline#tab_nr_type = 2 " tab number
-let g:airline#extensions#tabline#buffers_label = 'b'
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-nmap <leader>- <Plug>AirlineSelectPrevTab
-nmap <leader>+ <Plug>AirlineSelectNextTab
-"let g:airline_powerline_fonts = 1
-"let g:bufferline_active_highlight = 'StatusLineNC'
-"let g:bufferline_inactive_highlight = 'StatusLineNC'
-colorscheme ale
-let g:airline_theme='behelit'
 
-"let g:airline#extensions#bufferline#enabled = 1
-"let g:airline#extensions#bufferline#overwrite_variables = 0
 
-"hi   StatusLine   guibg=#005f00   ctermbg=22    guifg=#b2b2b2   ctermfg=249 cterm=NONE
-"hi   StatusLineNC guibg=#008700   ctermbg=28    guifg=#87ff00   ctermfg=118 cterm=NONE
-
-let g:clang_format#code_style = "WebKit"
-let g:clang_format#command = "clang-format-3.9"
-
-" this make clang_complete faster
-let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang.so.1'
-
-" use ag that is faster than ack
-if executable('ag')
-      let g:ackprg = 'ag --column --ignore=*.d --ignore=tags'
-endif
-
-let g:ycm_enable_diagnostic_signs = 0
-let g:ycm_enable_diagnostic_highlighting = 0
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\.git$\|\.hg$\|\.svn$\|bower_components$\|dist$\|node_modules$\|project_files$\|test$',
-    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$\|\.d$\|\.o$' }
 "==========================================================================
-" Settings
+" General Settings
 "==========================================================================
 set t_Co=256							" terminal supports 256 colors 
 set hidden								" change buffer even if unsaved
@@ -101,6 +58,8 @@ set backupdir=/tmp						" Don't want no lousy .swp files in my directoriez
 set directory=/tmp
 set nolist
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:␣
+set wildmenu
+set wildmode=list:longest,full
 "set verbose=9							" useful for testing autocommands
 " set visualbell						" enable visualbell and t_vb to keep Vim quiet
 " set t_vb=
@@ -120,7 +79,7 @@ iab tihs this
 " Personal information
 " N.B. <C-M> (control M )= <CR>
 iab MYADDR Alessandro Maggi<C-M>Via Daria Menicanti, 13<C-M>29122 Piacenza (PC)<C-M>
-iab MYCELL tel: 3288428789
+iab MYCELL tel: +39 3288428789
 iab MYMAIL  Alessandro Maggi <alessandro.maggi@gmail.com>
 " Dates and times
 iab Ddate <C-R>=strftime("%d/%m/%y")<CR>
@@ -152,7 +111,7 @@ map <F12> ^i#---BERTEL-<C-R>=strftime("%Y-%m-%d-AM-BEGIN")<CR><CR><ESC>
 vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
 " common mistake
 nmap :W :w
-" yank the whole line
+" yank from the currend cursor position to the end of line
 nnoremap Y y$
 " tags with CTRLP
 nnoremap <leader>. :CtrlPTag<cr>
@@ -179,6 +138,13 @@ autocmd BufReadPost *
 
 " limit the width of txt files
 autocmd BufReadPost,BufNewfile *.txt set textwidth=78
+
+" limit the width of txt files
+autocmd BufReadPost,BufNewfile *.md call FT_markdown()
+
+function FT_markdown()
+	set textwidth=78
+endfunction
 
 
 " Editing of emails and Usenet followups
@@ -245,6 +211,12 @@ function FT_c()
    map <F12>  ^o/* 0000_AM_SELTA_dsc_<C-R>=strftime("%Y_%m_%d_End*/")<CR><ESC>
    map <F7> oprintf("[%s:%d]Stub\n",__FILE__,__LINE__);<ESC>
    map <leader>d ^i/**<CR> @brief<CR>@fn<CR>@param[in,out]<CR>/<CR><ESC><UP>x
+
+   let g:clang_format#code_style = "WebKit"
+   let g:clang_format#command = "clang-format-3.9"
+
+   " this make clang_complete faster
+   let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang.so.1'
 endfunction
 
 " ============================================================================
@@ -343,3 +315,34 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 "hi StatusLine       guifg=#b5b5b5 guibg=#222222 gui=none ctermbg=Black ctermfg=Red
 "hi StatusLineNC       guifg=#b5b5b5 guibg=#222222 gui=none ctermbg=Black ctermfg=White
+"
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#tab_nr_type = 2 " tab number
+let g:airline#extensions#tabline#buffers_label = 'b'
+
+let g:airline_theme='behelit'
+
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <leader>- <Plug>AirlineSelectPrevTab
+nmap <leader>+ <Plug>AirlineSelectNextTab
+"let g:airline_powerline_fonts = 1
+"let g:bufferline_active_highlight = 'StatusLineNC'
+"let g:bufferline_inactive_highlight = 'StatusLineNC'
+"
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\.git$\|\.hg$\|\.svn$\|bower_components$\|dist$\|node_modules$\|project_files$\|test$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$\|\.d$\|\.o$' }
+
+" use ag that is faster than ack
+if executable('ag')
+      let g:ackprg = 'ag --column --ignore=*.d --ignore=tags'
+endif
