@@ -279,13 +279,10 @@ Plugin 'mileszs/ack.vim'
 Plugin 'drmikehenry/vim-headerguard'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'Rip-Rip/clang_complete'
-"Plugin 'jistr/vim-nerdtree-tabs'						"use buffers not tab
+Plugin 'yegappan/mru'
+Plugin 'jlanzarotta/bufexplorer'
 "Plugin 'bling/vim-bufferline'
-"Plugin 'Valloric/YouCompleteMe'						"Autocopletion code and more. clang_complete is better
-"Plugin 'vim-syntastic/syntastic'
-"Plugin 'https://github.com/freeo/vim-kalisi'
 "Plugin 'powerline/powerline'
-"Plugin 'fholgado/minibufexpl.vim'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
