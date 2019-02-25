@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ -f ./tags ]; then
    echo "Tagfile exists. Updating..."
    find -name '*.c' -newer tags -o -name '*.cpp' -newer tags -o -name '*.h' -newer tags > /tmp/ctagslist
