@@ -56,7 +56,7 @@ set viminfo='1000,f1,:100,/100,%,!		" save environment
 set clipboard^=unnamedplus,unnamedplus	" copy&paste among instances and all other program including mouse selection
 set backupdir=/tmp						" Don't want no lousy .swp files in my directoriez
 set directory=/tmp
-set nolist
+set nolist								" Dont' show unprintable chars
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,space:␣
 set wildmenu
 set wildmode=list:longest,full
@@ -212,8 +212,14 @@ function FT_c()
    map <F7> oprintf("[%s:%d]Stub\n",__FILE__,__LINE__);<ESC>
    map <leader>d ^i/**<CR> @brief<CR>@fn<CR>@param[in,out]<CR>/<CR><ESC><UP>x
 
-   let g:clang_format#code_style = "WebKit"
-   let g:clang_format#command = "clang-format-3.9"
+	" Configure clang-format
+	let g:clang_format#command = '/usr/bin/clang-format'
+
+	let g:clang_format#style_options = {
+		\"BreakBeforeBraces": "Allman",
+		\"IndentWidth": '4',
+		\"AccessModifierOffset": '-2',
+		\"PointerAlignment": "Left"}
 
    " this make clang_complete faster
    let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang.so.1'
@@ -270,17 +276,21 @@ Plugin 'tpope/vim-fugitive' 							"Git Plugin
 Plugin 'scrooloose/nerdtree'							"Browse the filesystem
 Plugin 'majutsushi/tagbar'								"Display tags in right windows
 Plugin 'vim-airline/vim-airline'                        "Cool status bar
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'vim-airline/vim-airline-themes'					"Theme for airline
+Plugin 'ctrlpvim/ctrlp.vim'								"Fuzzy finder
 Plugin 'vim-scripts/a.vim'								"Alternate file .c <-> .h
-Plugin 'rhysd/vim-clang-format'
-Plugin 'scrooloose/nerdcommenter' 						"
-Plugin 'mileszs/ack.vim'
-Plugin 'drmikehenry/vim-headerguard'
-Plugin 'rdnetto/YCM-Generator'
+Plugin 'rhysd/vim-clang-format'							"Format code
+Plugin 'scrooloose/nerdcommenter' 						"better comments
+Plugin 'mileszs/ack.vim'								"Better grep
+Plugin 'drmikehenry/vim-headerguard'					"Guard in file .h
 Plugin 'Rip-Rip/clang_complete'
-Plugin 'yegappan/mru'
-Plugin 'jlanzarotta/bufexplorer'
+Plugin 'yegappan/mru'									"Most recentlry used
+"Plugin 'ervandew/screen'								"Shell in vi (orribile)
+"Plugin 'jlanzarotta/bufexplorer'						"Comandi per cambiare buffer (inutile con airline)
+"Plugin 'rdnetto/YCM-Generator'							"You complete me generator
+"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'JBakamovic/cxxd-vim'
+"Plugin 'JBakamovic/yaflandia'
 "Plugin 'bling/vim-bufferline'
 "Plugin 'powerline/powerline'
 " plugin from http://vim-scripts.org/vim/scripts.html
@@ -343,3 +353,7 @@ let g:ctrlp_custom_ignore = {
 if executable('ag')
       let g:ackprg = 'ag --column --ignore=*.d --ignore=tags'
 endif
+
+
+
+
